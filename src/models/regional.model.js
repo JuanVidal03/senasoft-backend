@@ -7,15 +7,19 @@ const regionalSchema = await mongoose.Schema({
         trim: true,
     },
     coordenadas: {
-        x: {
+        longitud: {
             type: String,
             required: true
         },
-        y: {
+        latitud: {
             type: String,
             required: true
         }
-    }
+    },
+    bicicletas: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "bicicletas"
+    }]
 });
 
 export const RegionalModel = await mongoose.model("regionale", regionalSchema);
