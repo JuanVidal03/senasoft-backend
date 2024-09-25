@@ -14,14 +14,13 @@ const bicicletasSchema = await mongoose.Schema({
     estado: {
         type: String,
         required: true,
-        enum: ["activo", "inactivo", "mantenimiento"],
+        enum: ["Activo", "Inactivo", "Mantenimiento"],
     },
-    precio: {
+    precioBase: {
         type: Number,
         required: true,
         trim: true,
     },
-   
 });
 
 export const BicicletaModel = await mongoose.model("bicicleta", bicicletasSchema);
