@@ -23,7 +23,7 @@ const eventoSchema = await mongoose.Schema({
     },
     regional:{
          type: mongoose.Schema.Types.ObjectId,
-        ref: "regionales"
+        ref: "regionale"
     }
 });
 
