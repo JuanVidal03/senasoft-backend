@@ -104,7 +104,11 @@ export const verifyToken = async(req, res) => {
                 error: error.message,
             });
 
-            const foundUser = await UserModel.findById(user._id);
+            const foundUser = await UserModel.findById(user._id)
+                .populate({
+                    path: "regional",
+                    populate: "bicicletas"
+                });
             if(!foundUser) return res.status(404).json({
                 message: "Usuario no encontrado",
             });
