@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const bicicletasSchema = await mongoose.Schema({
-    Usuario: {
+const alquilerSchema = await mongoose.Schema({
+    usuario: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     },
-    Bicicleta: {
+    bicicleta: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "bicicletas"
     },
@@ -31,4 +31,4 @@ const bicicletasSchema = await mongoose.Schema({
     }
 });
 
-export const BicicletaModel = await mongoose.model("bicicleta", bicicletasSchema);
+export const AlquilerModel = await mongoose.model("alquiler", alquilerSchema);

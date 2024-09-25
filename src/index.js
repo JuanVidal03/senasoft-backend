@@ -22,9 +22,12 @@ const PORT = process.env.PORT || 8080;
 
 import authRouter from "./routes/auth.routes.js";
 import regionalesRouter from "./routes/regional.routes.js";
+import bicicletasRouter from "./routes/bicicletas.routes.js";
+import alquilerRouter from "./routes/alquiler.routes.js";
 
 app.use("/api", authRouter);
 app.use("/api", regionalesRouter);
-
+app.use("/api", bicicletasRouter);
+app.use("/api", alquilerRouter)
 app.listen(PORT, console.log(`Server running on http://localhost:${PORT}`));
 dbConnection();

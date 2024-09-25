@@ -18,7 +18,7 @@ const regionalSchema = await mongoose.Schema({
     },
     bicicletas: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "bicicletas"
+        ref: "bicicleta"
     }]
 });
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllBicicletas, createBicicletas, getAllBicicletasIds } from "../controllers/bicicleta.controller.js";
+import { getAllBicicletas, createBicicletas, getAllBicicletasIds } from "../controllers/bicicletas.controller.js"
 
 const bicicletasRouter = Router();
 
