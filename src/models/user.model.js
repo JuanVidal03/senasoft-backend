@@ -27,7 +27,7 @@ const userSchema = await mongoose.Schema({
     },
     regional: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "regional"
+        ref: "regionale"
     }
 });
 

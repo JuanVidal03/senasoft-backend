@@ -39,7 +39,12 @@ export const login = async(req, res) => {
 
     try {
 
-        const foundUser = await UserModel.findOne({ email: userData.email });
+        const foundUser = await UserModel.findOne({ email: userData.email })
+            .populate({
+                path: "regional",
+                populate: "bicicletas"
+            });
+    
         if(!foundUser) return res.status(404).json({
             message: `El usuario con email: ${userData.email} no existe.`,
         });
