@@ -21,8 +21,13 @@ const eventoSchema = await mongoose.Schema({
         required: true,
         trim: true,
     },
+    estado: {
+        type: String,
+        required: true,
+        enum: ["Proximo", "En proceso", "Finalizado"],
+    },
     regional:{
-         type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "regionale"
     }
 });
