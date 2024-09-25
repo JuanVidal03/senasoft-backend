@@ -38,10 +38,10 @@ export const createAlquiler = async(req, res) => {
 }
 
 export const getAlquileresForUser = async (req, res) => {
-    const { idUser } = req.params;
+    const { iduser } = req.params;
 
     try {
-        const alquileres = await AlquilerModel.find({ usuario: idUser })
+        const alquileres = await AlquilerModel.find({ usuario: iduser })
             .populate('bicicleta') 
 
         if (!alquileres.length) {
@@ -55,3 +55,23 @@ export const getAlquileresForUser = async (req, res) => {
     }
 };
 
+export const patchAlquiler = async (req, res) => {
+    const { alquilerid } = req.params;
+    const data = req.body; 
+
+    try {
+        const alquilerActualizado = await AlquilerModel.findByIdAndUpdate(alquilerid, data, {
+            new: true,
+            runValidators: true 
+        });
+
+        if (!alquilerActualizado) {
+            return res.status(404).json({ mensaje: 'Alquiler no encontrado.' });
+        }
+
+        return res.status(200).json(alquilerActualizado);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ mensaje: 'Error al actualizar el alquiler.', error: error.message });
+    }
+};
