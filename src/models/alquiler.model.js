@@ -24,11 +24,6 @@ const alquilerSchema = await mongoose.Schema({
         required:true,
         trim:true
     },
-    valorTotal:{
-        type:Number,
-        required:true,
-        trim:true
-    },
     estado:{
         type:Boolean,
         required:true,

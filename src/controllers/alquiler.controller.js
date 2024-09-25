@@ -26,13 +26,12 @@ export const createAlquiler = async (req, res) => {
   try {
     const createdAlquiler = await AlquilerModel.create(alquiler);
 
-    
     const updateBicycleState = await BicicletaModel.findByIdAndUpdate(
       idBicicleta,
-      { estado: estado }, 
+      { estado: estado },
       {
         new: true,
-        runValidators: true, 
+        runValidators: true,
       }
     );
 
@@ -70,12 +69,10 @@ export const getAlquileresForUser = async (req, res) => {
     return res.status(200).json(alquileres);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        mensaje: "Error al obtener los alquileres.",
-        error: error.message,
-      });
+    return res.status(500).json({
+      mensaje: "Error al obtener los alquileres.",
+      error: error.message,
+    });
   }
 };
 
@@ -100,11 +97,42 @@ export const patchAlquiler = async (req, res) => {
     return res.status(200).json(alquilerActualizado);
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .json({
-        mensaje: "Error al actualizar el alquiler.",
-        error: error.message,
-      });
+    return res.status(500).json({
+      mensaje: "Error al actualizar el alquiler.",
+      error: error.message,
+    });
+  }
+};
+
+export const makeProfitMonth = async (req, res) => {
+  try {
+    const profitMonth = await AlquilerModel.aggregate([
+      {
+          $group: {
+              _id: { $dateToString: { format: "%Y-%m", date: "$fechaInicio" } },
+              totalGanancias: { $sum: "$valorTotal" },
+          },
+      },
+      {
+          $sort: { _id: 1 }, 
+      },
+  ]);
+  
+  const formattedResults = profitMonth.map((item) => ({
+    mes: item._id, 
+    totalGanancias: item.totalGanancias,
+}));
+
+
+    return res.status(200).json({
+      message: "Ganancias por mes obtenidas correctamente.",
+      data: formattedResults,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Error al obtener las ganancias por mes.",
+      error,
+    });
   }
 };
