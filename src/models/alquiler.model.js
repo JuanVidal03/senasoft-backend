@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const alquilerSchema = await mongoose.Schema({
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
+        ref: "user"
     },
     bicicleta: {
         type: mongoose.Schema.Types.ObjectId,

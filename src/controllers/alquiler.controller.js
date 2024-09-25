@@ -3,7 +3,7 @@ import { BicicletaModel } from "../models/bicicleta.model.js";
 
 export const getAllAlquileres = async (req, res) => {
   try {
-    const alquileres = await AlquilerModel.find({})
+    const alquileres = await AlquilerModel.find()
       .populate("usuario")
       .populate("bicicleta");
     return res.status(200).json({
