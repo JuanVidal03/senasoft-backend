@@ -7,7 +7,7 @@ const alquilerSchema = await mongoose.Schema({
     },
     bicicleta: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "bicicletas"
+        ref: "bicicleta"
     },
     fechaInicio: {
         type: Date,
@@ -24,10 +24,16 @@ const alquilerSchema = await mongoose.Schema({
         required:true,
         trim:true
     },
-    precioUso:{
+    valorTotal:{
         type:Number,
         required:true,
         trim:true
+    },
+    estado:{
+        type:Boolean,
+        required:true,
+        trim:true,
+        default:false
     }
 });
 
