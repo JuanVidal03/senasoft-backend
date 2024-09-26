@@ -25,11 +25,14 @@ import regionalesRouter from "./routes/regional.routes.js";
 import bicicletasRouter from "./routes/bicicletas.routes.js";
 import alquilerRouter from "./routes/alquiler.routes.js";
 import eventoRouter from "./routes/eventos.routes.js";
+import referidosRouter from "./routes/agregarReferidos.routes.js";
 
 app.use("/api", authRouter);
 app.use("/api", regionalesRouter);
 app.use("/api", bicicletasRouter);
 app.use("/api", alquilerRouter)
 app.use('/api', eventoRouter)
+app.use('/api', referidosRouter)
+
 app.listen(PORT, console.log(`Server running on http://localhost:${PORT}`));
 dbConnection();

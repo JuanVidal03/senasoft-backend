@@ -28,6 +28,21 @@ const userSchema = await mongoose.Schema({
     regional: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "regionale"
+    },
+    puntos:{
+        type:Number,
+        default:0,
+        trim:true
+    },
+    invitationToken:{
+        type:String,
+        required:false,
+        trim:true
+    } ,
+    invitationExpires:{
+        type:Date,
+        required:false,
+        trim:true
     }
 });
 
