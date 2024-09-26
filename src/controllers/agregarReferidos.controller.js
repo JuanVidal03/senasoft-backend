@@ -27,7 +27,12 @@ export const enviarCorreoInvitacion = async (req, res) => {
             `
         };
         trasporte.sendMail(mainOptions, (error, info) => {
-            if (error) return res.json({ error });
+
+            if (error){
+                console.log(error) 
+                return res.json({ error });
+            } 
+
             return res.json({ msg: "Verificación enviada correctamente" });
         });
     } catch (error) {
