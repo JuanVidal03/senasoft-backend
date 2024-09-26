@@ -1,11 +1,13 @@
 import mailer  from 'nodemailer'
 import crypto from 'crypto';
 import { UserModel } from '../models/user.model.js';
+
 export const enviarCorreoInvitacion = async (req, res) => {
     const { email, idUser } = req.body;
     try {
         const token = crypto.randomBytes(20).toString('hex');
         const user = await UserModel.findById(idUser);
+        console.log(user);
         if (!user) return res.status(404).json({ msg: 'Usuario no encontrado' });
         user.invitationToken = token; 
         user.invitationExpires = Date.now() + 3600000;
@@ -23,14 +25,14 @@ export const enviarCorreoInvitacion = async (req, res) => {
             subject: `Correo de invitación`,
             text: `Tu amigo te ha invitado a ser parte del cambio. 
             Haz clic en el siguiente enlace para registrarte:
-            http://localhost:8080/api/user/invitation/${token}
+            ${process.env.RUTA_BASE}/api/user/invitation/${token}
             `
         };
         trasporte.sendMail(mainOptions, (error, info) => {
 
             if (error){
                 console.log(error) 
-                return res.json({ error });
+                return res.status(400).json({ error });
             } 
 
             return res.json({ msg: "Verificación enviada correctamente" });
