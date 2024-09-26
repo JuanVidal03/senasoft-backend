@@ -78,12 +78,13 @@ export const getAlquileresForUser = async (req, res) => {
 
 export const patchAlquiler = async (req, res) => {
   const { alquilerid } = req.params;
-  const data = req.body;
+  console.log(alquilerid)
+  const estado = true
 
   try {
     const alquilerActualizado = await AlquilerModel.findByIdAndUpdate(
       alquilerid,
-      data,
+      {estado:estado},
       {
         new: true,
         runValidators: true,
@@ -134,5 +135,43 @@ export const makeProfitMonth = async (req, res) => {
       message: "Error al obtener las ganancias por mes.",
       error,
     });
+  }
+};
+
+
+export const getTotalRentWeek = async (req, res) => {
+  try {
+      const today = new Date();
+      
+      const lastWeek = new Date();
+      lastWeek.setDate(today.getDate() - 7);
+
+      const alquileresForDay = await AlquilerModel.aggregate([
+          {
+              $match: {
+                  fechaInicio: { 
+                      $gte: lastWeek,
+                      $lte: today
+                  }
+              }
+          },
+          {
+              $group: {
+                  _id: { 
+                      $dateToString: { format: "%Y-%m-%d", date: "$fechaInicio" } 
+                  },
+                  totalDia: { $sum: "$valorTotal" }
+              }
+          },
+          {
+           
+              $sort: { _id: 1 }
+          }
+      ]);
+
+      res.status(200).json(alquileresForDay);
+  } catch (error) {
+      console.error("Error al obtener el total de alquileres por semana:", error);
+      res.status(500).json({ message: 'Error al obtener el total de alquileres por semana' });
   }
 };

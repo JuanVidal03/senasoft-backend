@@ -29,7 +29,11 @@ const eventoSchema = await mongoose.Schema({
     regional:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "regionale"
-    }
+    },
+    participantes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }]
 });
 
 export const EventoModel = await mongoose.model("evento", eventoSchema);

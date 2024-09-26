@@ -29,7 +29,17 @@ const alquilerSchema = await mongoose.Schema({
         required:true,
         trim:true,
         default:false
-    }
+    },
+    destino: {
+        longitud: {
+            type: String,
+            required: true
+        },
+        latitud: {
+            type: String,
+            required: true
+        }
+    },
 });
 
 export const AlquilerModel = await mongoose.model("alquiler", alquilerSchema);

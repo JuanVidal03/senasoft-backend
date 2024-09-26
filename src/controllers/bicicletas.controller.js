@@ -42,7 +42,10 @@ export const createBicicletas = async(req, res) => {
 export const getAllBicicletasIds = async(req, res) => {
     try {
         
-        const bicicletasIds = await BicicletaModel.find({}).select("_id");
+        const bicicletasIds = await BicicletaModel.find({})
+            .sort({ _id: -1 })
+            .limit(100)
+            .select("_id");
 
         return res.status(200).json({
             message: "Bicicletas obtenidas correctamente!",
@@ -56,3 +59,32 @@ export const getAllBicicletasIds = async(req, res) => {
         });
     }
 }
+
+
+export const patchBicicleta= async (req, res) => {
+    const { idbicicleta } = req.params;
+    const estado = req.body;
+  
+    try {
+      const bicicletaActualizado = await BicicletaModel.findByIdAndUpdate(
+        idbicicleta,
+        estado,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+  
+      if (!bicicletaActualizado) {
+        return res.status(404).json({ mensaje: "Alquiler no encontrado." });
+      }
+  
+      return res.status(200).json(bicicletaActualizado);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        mensaje: "Error al actualizar el alquiler.",
+        error: error.message,
+      });
+    }
+};
